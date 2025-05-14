@@ -5,12 +5,12 @@ import altair as alt
 import plotly.express as px
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-import numpy as np
-from os import path
-from PIL import Image
+# import numpy as np
+# from os import path
+# from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-import seaborn as sns
-import matplotlib.patches as mpatches
+# import seaborn as sns
+# import matplotlib.patches as mpatches
 
 
 #######################
