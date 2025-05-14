@@ -1,15 +1,15 @@
-# BPM Community Dashboard
+### BPM Community Dashboard
 streamlit==1.31.1
 pandas==2.2.1
 altair==5.2.0
 plotly==5.19.0
 plotly.express==0.4.0
-# fsspec==2024.2.0
 matplotlib==3.8.3
 numpy==1.26.4
 wordcloud==1.9.3
 seaborn==0.13.2
-# Prediction
+fsspec==2024.2.0
+### Prediction
 # requests==2.31.0
 # gcsfs==2024.2.0
 # openpyxl==3.1.2
