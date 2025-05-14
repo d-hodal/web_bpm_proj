@@ -5,6 +5,12 @@ altair
 plotly
 plotly.express==0.4.0
 fsspec==2024.2.0
+os
+matplotlib
+numpy
+PIL
+wordcloud
+seaborn
 # Prediction
 requests
 gcsfs
