@@ -9,7 +9,6 @@ matplotlib==3.8.3
 numpy==1.26.4
 wordcloud==1.9.3
 seaborn==0.13.2
-hmac
 # Prediction
 # requests==2.31.0
 # gcsfs==2024.2.0
