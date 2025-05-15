@@ -5,6 +5,8 @@ import altair as alt
 import plotly.express as px
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
+import json
+import gcsfs
 # import numpy as np
 # from os import path
 # from PIL import Image
@@ -52,29 +54,44 @@ with open( "css_styles/style.css" ) as css:
 
 ### GCS
 
-# https://console.cloud.google.com/storage/browser/bpm_bucket/cleaned_data_for_analysis.csv
+# Credentials
+
+service_account_json = st.secrets["gcp"]["service_account_json"]
+
+credentials = json.loads(service_account_json) 
+
+file_s = gcsfs.GCSFileSystem(project=credentials["project_id"], token=credentials)
+
+
+
+
+# Bucket and files
 bucket_name = 'personal_projects_ber'
-file_path_analytics = "cleaned_data_for_analysis.csv"
+file_path_analytics ='data_for_analytics.csv'
 file_path_ml = "cleaned_data_for_ml.csv"
 file_path_cg = "Community Growth.xlsx"
 file_path_wc = "report-2024-04-10T1552.csv"
 
 
 @st.cache_data
-def load_csv(url):
-    df = pd.read_csv(url)
-    return df
+def load_csv(file_path):
+    print(f'gs://{bucket_name}/{file_path}')
+    with file_s.open(f'gs://{bucket_name}/{file_path}', 'rb') as f:
+        df = pd.read_csv(f)
+        
+        return df
 
 @st.cache_data(ttl="1d")
-def load_excel(url, header_num=0):
-    df = pd.read_excel(url, header=header_num)
-    return df
+def load_excel(file_path, header_num=0):
+    with file_s.open(f'{bucket_name}/{file_path}', 'rb') as f:
+        df = pd.read_excel(f, header=header_num)
+        return df
 
-
-df_gcs_an = load_csv(f'gs://{bucket_name}/{file_path_analytics}')
-df_gcs_ml = load_csv(f'gs://{bucket_name}/{file_path_ml}')
-df_gcs_cg = load_excel(f'gs://{bucket_name}/{file_path_cg}', header_num=1)
-df_gcs_wc = load_csv(f'gs://{bucket_name}/{file_path_wc}')
+# Load DFs
+df_gcs_an = load_csv(file_path_analytics)
+df_gcs_ml = load_csv(file_path_ml)
+df_gcs_cg = load_excel(file_path_cg, header_num=1)
+df_gcs_wc = load_csv(file_path_wc)
 
 df_analytics = df_gcs_an
 df_reshaped = df_gcs_ml
@@ -370,6 +387,5 @@ with col[0]:
                         max_value=max(df_attendees["count"]),
                      )}
                  )
-
 
 
