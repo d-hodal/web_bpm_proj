@@ -53,7 +53,7 @@ with open( "css_styles/style.css" ) as css:
 ### GCS
 
 # https://console.cloud.google.com/storage/browser/bpm_bucket/cleaned_data_for_analysis.csv
-bucket_name = 'bpm_buckt'
+bucket_name = 'personal_projects_ber'
 file_path_analytics = "cleaned_data_for_analysis.csv"
 file_path_ml = "cleaned_data_for_ml.csv"
 file_path_cg = "Community Growth.xlsx"
